@@ -1,0 +1,92 @@
+{% extends 'base.html.twig'%}
+  {% block title %}Maleteo {% endblock %}
+
+    {% block body %}
+    <section class="jumbotron">
+      <article class="stores">
+          <p class="store-message">Gana dinero  guardando equipaje a viajeros como tu.</p>
+        <div class="store-logos">
+          <picture>
+            <img src="assets/img/app-store.svg"/>
+          </picture>
+          <picture>
+            <img src="assets/img/google-play.svg" />
+          </picture>
+        </div>
+      </article>
+      <article></article>
+    </section>
+    <section class="como-funciona">
+      <div class="pasos-titulo">
+        <p>Como funciona?</p>
+      </div>
+      <article class="pasos">
+        <div class="paso">
+          <div class="paso-circulo">1</div>
+          <div class="paso-titulo">Date de alta</div>
+          <div class="paso-texto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse beatae tempora nostrum dolorum, repellendus doloribus!
+          </div>
+        </div>
+        <div class="paso">
+          <div class="paso-circulo">2</div>
+          <div class="paso-titulo">Date de alta</div>
+          <div class="paso-texto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse beatae tempora nostrum dolorum, repellendus doloribus!
+          </div>
+        </div>
+        <div class="paso">
+          <div class="paso-circulo">3</div>
+          <div class="paso-titulo">Date de alta</div>
+          <div class="paso-texto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse beatae tempora nostrum dolorum, repellendus doloribus!
+          </div>
+        </div>
+      </article>
+    </section>
+    <section class="contacto">
+      <picture class="contacto-foto">
+        <img src="assets/img/iPhoneX@2x.png" class="imagen-lateral">
+      </picture>
+      {{ form_start(demoForm, {'attr': {'class':'contacto-formulario'}}) }}
+        <div class="campo-formulario">
+          <p class="titulo-medio">Solicita una demo</p>
+        </div>
+        <div class="campo-formulario">
+          {{ form_label(demoForm.nombre)}}
+          {{ form_widget(demoForm.nombre) }}
+          {{ form_label(demoForm.email)}}
+          {{ form_widget(demoForm.email) }}
+          {{ form_label(demoForm.ciudad)}}
+          {{ form_widget(demoForm.ciudad) }}
+        </div>
+        <div style="display: flex; ">
+          {{ form_widget(demoForm.politica) }}
+          {{form_label(demoForm.politica)}}
+          <a style="text-decoration:underline; color:#f9a519; padding-left:5px;" href="#"> politica de privacidad</a>
+        </div>
+          {{ form_errors(demoForm) }}
+        <div class="campo-formulario">
+          <button>ENVIAR</button>
+        </div>
+      {{ form_end(demoForm) }} 
+    </section>
+    <section class="opiniones-guardianes">
+      <div class="opiniones-titulo">
+        <p>Opiniones de otros guardianes</p>
+      </div>
+      <article class="opiniones">
+        {% for opinion in opiniones %}
+        <div class="opinion">
+          <div class="opinion-texto">
+            {{opinion.id}}
+            {{opinion.comentario}}
+          </div>
+          <div class="opinion-autor">
+            <p>{{opinion.autor}}</p>
+          </div>
+          <div class="opinion-lugar">
+            <p>{{opinion.ciudad}}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </article>
+    </section>
+    {% endblock %}

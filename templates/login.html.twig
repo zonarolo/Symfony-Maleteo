@@ -1,0 +1,51 @@
+{% extends 'solicitudes.html.twig'%}
+
+{% block title %}Login{% endblock %}
+{% block stylesheets %}
+{{parent('solicitudes.html.twig')}}
+<style>
+.centrado{
+  width: 40vw;
+  position: relative;
+  left: 30%;
+
+}
+</style>
+{% endblock %}
+
+{% block body %}
+
+
+<div class="centrado">
+  {{ form_start(LoginForm) }}
+    <div class="campo-formulario">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+      <p class="titulo-medio">Identificate</p>
+    </div>
+    <div class="campo-formulario">
+      {{ form_label(LoginForm.email)}}
+      {{ form_widget(LoginForm.email, {'attr':{'value': last_username }}) }}
+      {{ form_label(LoginForm.password)}}
+      {{ form_widget(LoginForm.password) }}
+    </div>
+    <div style="display: flex; ">
+      {{ form_widget(LoginForm.recuerdame) }}
+      {{form_label(LoginForm.recuerdame )}}
+    </div>
+      {{ form_errors(LoginForm) }}
+    <div class="campo-formulario">
+      <button>ENVIAR</button>
+    </div>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+  {{ form_end(LoginForm) }} 
+</div>
+
+{% endblock %}

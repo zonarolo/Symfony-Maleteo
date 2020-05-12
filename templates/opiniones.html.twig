@@ -1,0 +1,29 @@
+{% extends "solicitudes.html.twig"%}
+
+
+{% block title %}Opiniones{% endblock %}
+{% block body %}
+<div>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Autor</th>
+      <th scope="col">Ciudad</th>
+      <th scope="col">Comentario</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for opinion in opiniones %}
+    <tr>
+      <th scope="row">{{opinion.id}}</th>
+      <td>{{opinion.autor}}</td>
+      <td>{{opinion.ciudad}}</td>
+      <td>{{opinion.comentario}}</td>
+    </tr>
+  {% endfor %}
+  
+  </tbody>
+</table>
+</div>
+{% endblock %}

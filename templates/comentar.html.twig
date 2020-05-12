@@ -1,0 +1,12 @@
+{% extends 'login.html.twig'%}
+
+{% block title %}Comentar{% endblock %}
+
+{% block body %}
+<div style="padding: 50px">
+  {{ form_start (OpinionForm) }}
+    {{ form_widget(OpinionForm)}}
+    <button type="submit" class="btn btn-secondary">Enviar</button>
+  {{form_end (OpinionForm)}}
+</div>
+{% endblock %}

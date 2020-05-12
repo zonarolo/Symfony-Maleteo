@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="Author" content="Juan Rolo" />
+        {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset("css/styles.css") }}">
+        {% endblock %}
+        <title>{% block title %}Welcome!{% endblock %}</title>
+    </head>
+    <body>
+        <main>
+        {% block header %}
+        <header>
+        <picture class="logo-header">
+            <a href="/maleteo"><img src="assets/img/logo.svg"></a>
+        </picture>
+        </header>
+        {% endblock %}
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+        {% block footer %}
+        <footer>
+            <picture>
+                <img src="assets/img/logo.svg" >
+            </picture>
+        <p>Hecho con <span class="heart">&hearts;</span> en Madrid.</p>
+        </footer>
+        {% endblock %}
+        </main>
+    </body>
+</html>
