@@ -48,8 +48,8 @@ class AppSecurityAuthenticator extends AbstractFormLoginAuthenticator implements
     public function getCredentials(Request $request)
     {
         $credentials = [
-            'email' => $request->request->get('email'),
-            'password' => $request->request->get('password'),
+            'email' => $request->request->get('login_form')['email'],
+            'password' => $request->request->get('login_form')['password'],
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
         $request->getSession()->set(
@@ -73,7 +73,7 @@ class AppSecurityAuthenticator extends AbstractFormLoginAuthenticator implements
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Email o password incorrecto.');
         }
-
+    
         return $user;
     }
 

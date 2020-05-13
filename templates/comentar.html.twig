@@ -3,10 +3,13 @@
 {% block title %}Comentar{% endblock %}
 
 {% block body %}
-<div style="padding: 50px">
+<div class="centrado">
+<p class="titulo-medio">Dejanos tu comentario</p>
   {{ form_start (OpinionForm) }}
     {{ form_widget(OpinionForm)}}
-    <button type="submit" class="btn btn-secondary">Enviar</button>
+    <div class="campo-formulario">
+      <button>ENVIAR</button>
+    </div>
   {{form_end (OpinionForm)}}
 </div>
 {% endblock %}

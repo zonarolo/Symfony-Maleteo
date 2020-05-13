@@ -2,19 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Login;
 use App\Entity\Opinion;
-use App\Entity\Registro;
 use App\Entity\Usuario;
 use App\Form\DemoForm;
-use App\Form\LoginForm;
 use App\Form\OpinionForm;
 use App\Form\RegistroForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class MaleteoController extends AbstractController
 {
@@ -55,7 +54,7 @@ class MaleteoController extends AbstractController
   }
 
   /**
-   * @Route("/success", name="enviado")
+   * @Route("/maleteo/success", name="enviado")
    */
   public function success()
   {
@@ -63,7 +62,7 @@ class MaleteoController extends AbstractController
   }
 
   /**
-   * @Route("/failure", name="error")
+   * @Route("/maleteo/failure", name="error")
    */
   public function failure()
   {
@@ -71,7 +70,7 @@ class MaleteoController extends AbstractController
   }
   
   /**
-   * @Route("/maleteo/solicitudes", name="solicitudes")
+   * @Route("/maleteo/admin/solicitudes", name="solicitudes")
    */
   public function solicitudes(EntityManagerInterface $em)
   {
@@ -81,7 +80,7 @@ class MaleteoController extends AbstractController
   }
 
   /**
-   * @Route("/maleteo/opiniones", name="opiniones")
+   * @Route("/maleteo/admin/opiniones", name="opiniones")
    */
   public function opiniones(EntityManagerInterface $em)
   {
@@ -114,44 +113,50 @@ class MaleteoController extends AbstractController
   }
 
   /**
-   * @Route("/maleteo/login", name="login")
+   * @Route("/registro", name="registro")
    */
-  // public function login(EntityManagerInterface $em, Request $request)
-  // {
-  //   $form = $this->createForm(LoginForm::class);
-  //   $form-> handleRequest($request);
-    
-  //   if ($form->isSubmitted() && $form->isValid()) {
-  //     $data = $form->getData();
-  //     $repo= $em->getRepository(Registro::class)
-  //               ->findOneBy(
-  //                 array('email'=> $data['email'],'password' => $data['password'])
-  //               );
-      
-  //     if ($repo){ 
-  //       return $this->redirectToRoute('landing');
-  //     } else {
-  //       return $this->redirectToRoute('error');
-  //     }
-  //   }
-  //   return $this->render('login.html.twig', ['LoginForm'=>$form->createView()]);
-  // }
-
-  /**
-   * @Route("/maleteo/registro", name="registro")
-   */
-  public function register(EntityManagerInterface $em, Request $request)
+  public function register(EntityManagerInterface $em, Request $request, UserPasswordEncoderInterface $passwordEncoder)
   {
     $form = $this->createForm(RegistroForm::class);
     $form-> handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()){
-      $data = $form->getData();
-      $em->persist($data);
+      $user = $form->getData(); 
+      $passwordCifrada = $passwordEncoder->encodePassword($user, $user->getPassword());
+      $user->setPassword($passwordCifrada);
+      $em->persist($user);
       $em->flush();
       return $this->redirectToRoute('enviado');
     }
 
     return $this->render('registro.html.twig', ['RegistroForm'=>$form->createView()]);
+  }
+
+  /**
+   * @Route("/maleteo/admin/solicitudes/{id}/borrar", name="borrarSolicitud")
+   */
+  public function borrarSolicitud(Usuario $solicitud, EntityManagerInterface $em)
+  {
+    $em->remove($solicitud);
+    $em->flush();
+    return new RedirectResponse('/maleteo/admin/solicitudes');
+  }
+
+  /**
+   * @Route("/maleteo/admin/opiniones/{id}/borrar", name="borrarOpinion")
+   */
+  public function borrarOpiniones(Opinion $opinion, EntityManagerInterface $em)
+  {
+    $em->remove($opinion);
+    $em->flush();
+    return new RedirectResponse('/maleteo/admin/opiniones');
+  }
+
+  /**
+   * @Route("/base")
+   */
+  public function base()
+  {
+    return $this->render('base.html.twig');
   }
 }

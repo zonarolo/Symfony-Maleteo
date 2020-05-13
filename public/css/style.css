@@ -7,11 +7,8 @@
   font-family: Catamaran, sans-serif;
 }
 
-header {
-  height: 20vh;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+.navbar {
+  padding: 40px;
 
 }
 
@@ -29,8 +26,8 @@ header {
 }
 
 .stores {
-  font-size: 45px;
-  width: 35%;
+  font-size: 35px;
+  width: 40%;
   height: 100%;
   color: white;
   background-color: rgba(0, 0, 0, 0.65);
@@ -47,7 +44,6 @@ header {
 }
 
 .store-logos {
-  padding-top: 10%;
   width: 100%;
   display: flex;
   align-items: center;
@@ -98,7 +94,7 @@ header {
 
 .paso, .opinion {
   width: 40%;
-  padding: 5%;
+  padding: 3%;
   height: auto;
   
   display: flex;
@@ -114,7 +110,7 @@ header {
   background: -webkit-gradient(linear, left top, left bottom, from(#ffce32), to(#f9a519));
   background: linear-gradient(180deg, #ffce32 0%, #f9a519 100%);
   border-radius: 50%;
-  font-size: 40px;
+  font-size: 30px;
   color: white;
 }
 
@@ -209,9 +205,9 @@ header {
 
 footer {
   height: 20vh;
-  background-color: lightslategrey;
+  background-color: #343A40;
   font-size: 25px;
-
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,6 +219,12 @@ footer {
   font-size: 40px
 }
 
+.centrado{
+  width: 40vw;
+  position: relative;
+  left: 30%;
+  padding: 50px;
+}
 /* MEDIA QUERIES */
  
 @media screen and (max-width:1000px){
@@ -231,20 +233,12 @@ footer {
   background-image: url("../assets/img/jumbo@1x.png");
   }
   
-  .store-logos {
-  flex-direction: column;
-  }
-  
-  .stores {
-  font-size:45px;
-  width: 60%;
-  }
-  
   .store-message{
-  padding:30px;
+  padding:20px;
+  font-size:35px;
   }
   
- }
+}
 
 
 @media screen and (max-width:768px){
@@ -254,16 +248,11 @@ background-image: url("../assets/img/jumbo@1x.png");
 }
 
 .store-logos {
-flex-direction: column;
+flex-direction: row;
 }
 
 .stores {
-font-size:45px;
-width: 100%;
-}
-
-.store-message{
-padding:30px;
+  width: 100%;
 }
 
 .pasos, .opiniones {
@@ -280,7 +269,7 @@ padding:30px;
 
 .store-message {
   width: 100%;
-  font-size: 40px;
+  font-size: 30px;
 }
 
 .imagen-lateral {

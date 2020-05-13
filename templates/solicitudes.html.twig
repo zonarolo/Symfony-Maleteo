@@ -2,21 +2,8 @@
 
 {% block title %}Solicitudes{% endblock %}
 
-{% block stylesheets %}
-{{parent('base.html.twig')}}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-{% endblock %}
-
-{% block header %}
-  <header>
-  <picture class="logo-header">
-      <a href="/maleteo"><img src="/assets/img/logo.svg" style="padding-top: 45px"></a>
-  </picture>
-  </header>
-{% endblock %}
-
 {% block body %}
-<div>
+
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -24,6 +11,7 @@
       <th scope="col">Nombre</th>
       <th scope="col">Email</th>
       <th scope="col">Ciudad</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -33,19 +21,11 @@
       <td>{{usuario.nombre}}</td>
       <td>{{usuario.email}}</td>
       <td>{{usuario.ciudad}}</td>
+      <td><a href="{{path("borrarSolicitud", {id:usuario.id})}}" style="color:black;"><i class="fas fa-trash-alt fa-1x"></i></a></td>
     </tr>
   {% endfor %}
   
   </tbody>
 </table>
-</div>
-{% endblock %}
 
-{% block footer %}
-  <footer style="text-align: center; padding-top: 20px">
-      <picture>
-          <img src="/assets/img/logo.svg" >
-      </picture>
-  <p>Hecho con <span class="heart">&hearts;</span> en Madrid.</p>
-  </footer>
 {% endblock %}

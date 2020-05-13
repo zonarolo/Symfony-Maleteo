@@ -1,0 +1,1 @@
+update table user set roles=ROLE_ADMIN where id=1;

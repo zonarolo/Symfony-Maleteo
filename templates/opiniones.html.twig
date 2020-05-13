@@ -1,4 +1,4 @@
-{% extends "solicitudes.html.twig"%}
+{% extends "base.html.twig"%}
 
 
 {% block title %}Opiniones{% endblock %}
@@ -11,6 +11,7 @@
       <th scope="col">Autor</th>
       <th scope="col">Ciudad</th>
       <th scope="col">Comentario</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +21,7 @@
       <td>{{opinion.autor}}</td>
       <td>{{opinion.ciudad}}</td>
       <td>{{opinion.comentario}}</td>
+      <td><a href="{{path("borrarOpinion", {id:opinion.id})}}" style="color:black;"><i class="fas fa-trash-alt fa-1x"></i></a></td>
     </tr>
   {% endfor %}
   

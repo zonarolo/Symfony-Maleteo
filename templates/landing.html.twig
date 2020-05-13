@@ -58,8 +58,8 @@
           {{ form_widget(demoForm.ciudad) }}
         </div>
         <div style="display: flex; ">
-          {{ form_widget(demoForm.politica) }}
           {{form_label(demoForm.politica)}}
+          {{ form_widget(demoForm.politica) }}
           <a style="text-decoration:underline; color:#f9a519; padding-left:5px;" href="#"> politica de privacidad</a>
         </div>
           {{ form_errors(demoForm) }}
@@ -76,7 +76,6 @@
         {% for opinion in opiniones %}
         <div class="opinion">
           <div class="opinion-texto">
-            {{opinion.id}}
             {{opinion.comentario}}
           </div>
           <div class="opinion-autor">
