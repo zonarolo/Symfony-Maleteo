@@ -26,8 +26,11 @@
       {{ form_widget(LoginForm.password) }}
     </div>
     <div style="display: flex; ">
-      {{ form_widget(LoginForm.recuerdame) }}
-      {{form_label(LoginForm.recuerdame )}}
+      {# {{ form_widget(LoginForm.recuerdame) }}
+      {{form_label(LoginForm.recuerdame )}} #}
+      <input type="checkbox" id="remember_me" name="_remember_me"/>
+      <label for="checkbox">Recuerdame</label>
+
     </div>
       {{ form_errors(LoginForm) }}
     <div class="campo-formulario">

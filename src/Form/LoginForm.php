@@ -14,9 +14,5 @@ class LoginForm extends AbstractType
   {
     $builder->add('email',EmailType::class, array('attr'=>array('placeholder'=>'juanrolo@upradehub.com','label'=>'Email')));
     $builder->add('password', PasswordType::class, array('attr'=>array('placeholder'=>'**********','label'=>'Password')));
-    $builder->add('recuerdame', CheckboxType::class, [
-      'label' => 'Recuerdame',
-      'required' => false
-    ]);
   }
 }

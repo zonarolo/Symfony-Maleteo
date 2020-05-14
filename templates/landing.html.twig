@@ -45,9 +45,11 @@
       <picture class="contacto-foto">
         <img src="assets/img/iPhoneX@2x.png" class="imagen-lateral">
       </picture>
-      {{ form_start(demoForm, {'attr': {'class':'contacto-formulario'}}) }}
+      {{ form_start(demoForm, {'action': path ("demo_submit"),'attr': {'class':'contacto-formulario', 'id':'formulario'}}) }}
         <div class="campo-formulario">
           <p class="titulo-medio">Solicita una demo</p>
+        </div>
+        <div id="formularioEnviado">
         </div>
         <div class="campo-formulario">
           {{ form_label(demoForm.nombre)}}
@@ -64,7 +66,7 @@
         </div>
           {{ form_errors(demoForm) }}
         <div class="campo-formulario">
-          <button>ENVIAR</button>
+          <button id="enviar">ENVIAR</button>
         </div>
       {{ form_end(demoForm) }} 
     </section>

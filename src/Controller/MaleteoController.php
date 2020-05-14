@@ -7,12 +7,14 @@ use App\Entity\Usuario;
 use App\Form\DemoForm;
 use App\Form\OpinionForm;
 use App\Form\RegistroForm;
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class MaleteoController extends AbstractController
@@ -24,19 +26,19 @@ class MaleteoController extends AbstractController
   {
     try {
       $form = $this->createForm(DemoForm::class);
-      $form-> handleRequest($request);
+      // $form-> handleRequest($request);
 
-      if ($form->isSubmitted() && $form->isValid()) {
-        $data = $form->getData();
-        $usuario = new Usuario();
-        $usuario->setNombre($data['nombre']);
-        $usuario->setEmail($data['email']);
-        $usuario->setCiudad($data['ciudad']);
+      // if ($form->isSubmitted() && $form->isValid()) {
+      //   $data = $form->getData();
+      //   $usuario = new Usuario();
+      //   $usuario->setNombre($data['nombre']);
+      //   $usuario->setEmail($data['email']);
+      //   $usuario->setCiudad($data['ciudad']);
 
-        $em->persist($usuario);
-        $em->flush();
-        return $this->redirectToRoute('enviado');
-      }
+      //   $em->persist($usuario);
+      //   $em->flush();
+      //   return $this->redirectToRoute('enviado');
+      // }
 
       $repo= $em->getRepository(Opinion::class);
       $opiniones=$repo->findAll();
@@ -70,7 +72,8 @@ class MaleteoController extends AbstractController
   }
   
   /**
-   * @Route("/maleteo/admin/solicitudes", name="solicitudes")
+   * @Route("/maleteo/solicitudes", name="solicitudes")
+   * @IsGranted("ROLE_ADMIN")
    */
   public function solicitudes(EntityManagerInterface $em)
   {
@@ -80,7 +83,8 @@ class MaleteoController extends AbstractController
   }
 
   /**
-   * @Route("/maleteo/admin/opiniones", name="opiniones")
+   * @Route("/maleteo/opiniones", name="opiniones")
+   * @IsGranted("ROLE_ADMIN")
    */
   public function opiniones(EntityManagerInterface $em)
   {
@@ -91,6 +95,7 @@ class MaleteoController extends AbstractController
 
   /**
    * @Route("/maleteo/comentar", name="comentar")
+   * @IsGranted("ROLE_USER")
    */
   public function comentar(EntityManagerInterface $em, Request $request, LoggerInterface $logger)
   {
@@ -133,30 +138,48 @@ class MaleteoController extends AbstractController
   }
 
   /**
-   * @Route("/maleteo/admin/solicitudes/{id}/borrar", name="borrarSolicitud")
+   * @Route("/maleteo/solicitudes/{id}/borrar", name="borrarSolicitud")
+   * @IsGranted("ROLE_ADMIN")
    */
   public function borrarSolicitud(Usuario $solicitud, EntityManagerInterface $em)
   {
     $em->remove($solicitud);
     $em->flush();
-    return new RedirectResponse('/maleteo/admin/solicitudes');
+    return new RedirectResponse('/maleteo/solicitudes');
   }
 
   /**
-   * @Route("/maleteo/admin/opiniones/{id}/borrar", name="borrarOpinion")
+   * @Route("/maleteo/opiniones/{id}/borrar", name="borrarOpinion")
+   * @IsGranted("ROLE_ADMIN")
    */
   public function borrarOpiniones(Opinion $opinion, EntityManagerInterface $em)
   {
     $em->remove($opinion);
     $em->flush();
-    return new RedirectResponse('/maleteo/admin/opiniones');
+    return new RedirectResponse('/maleteo/opiniones');
   }
 
   /**
-   * @Route("/base")
+   * @Route("/demo/js/submit", methods={"POST"}, name="demo_submit")
    */
-  public function base()
+  public function saveDemoWithJS(Request $request, EntityManagerInterface $em)
   {
-    return $this->render('base.html.twig');
+   
+   
+    $form= $this-> createForm(DemoForm::class);
+    $form->handleRequest($request);
+    $datos = json_decode($request->getContent(), true);
+    
+    
+    $demo = new Usuario();
+    $demo->setNombre($datos['nombre']);
+    $demo->setEmail($datos['email']);
+    $demo->setCiudad($datos['ciudad']);
+
+    $em->persist($demo);
+    $em->flush();
+
+    return new JsonResponse(['msg'=>'Datos enviados correctamente']);
   }
+
 }

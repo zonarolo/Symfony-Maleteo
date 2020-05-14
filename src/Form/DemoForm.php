@@ -15,14 +15,18 @@ class DemoForm extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
-    $builder->add('nombre',TextType::class, array('attr' => array('placeholder' => 'Juan Rolo', 'label'=>'Nombre')));
-    $builder->add('email',EmailType::class, array('attr' => array('placeholder' => 'juan@upgradehub.com', 'label'=>'Email')));
+    $builder->add('nombre',TextType::class, array('attr' => array('placeholder' => 'Juan Rolo', 'label'=>'Nombre',
+    'required' => true)));
+
+    $builder->add('email',EmailType::class, array('attr' => array('placeholder' => 'juan@upgradehub.com', 'label'=>'Email',
+    'required' => true)));
     
-    $builder->add('ciudad',ChoiceType::class,['choices'=>['Madrid'=>'madrid','Sevilla'=>'sevilla','Bacerlona'=>'barcelona'],'placeholder'=>'Elige tu ciudad', 'label'=>'Ciudad']);
+    $builder->add('ciudad',ChoiceType::class,['choices'=>['Madrid'=>'madrid','Sevilla'=>'sevilla','Bacerlona'=>'barcelona'],'placeholder'=>'Elige tu ciudad', 'label'=>'Ciudad',
+    'required' => true]);
     
     $builder->add('politica', CheckboxType::class, [
       'label' => 'Acepto la ',
-      'required' => true,
+      'required' => true
     ]);
   }
 

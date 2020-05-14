@@ -18,6 +18,9 @@ security:
         main:
             anonymous: lazy
             provider: app_user_provider
+            remember_me: 
+                secret: '%env(APP_SECRET)%'
+                lifetime: 604800
             guard:
                 authenticators:
                     - App\Security\AppSecurityAuthenticator
@@ -35,5 +38,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/maleteo/admin, roles: ROLE_ADMIN }
-        - { path: ^/maleteo/, roles: ROLE_USER }
+        # - { path: ^/maleteo/admin, roles: ROLE_ADMIN }
+        # - { path: ^/maleteo/, roles: ROLE_USER }

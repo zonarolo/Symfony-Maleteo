@@ -23,12 +23,14 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-md-end" id="navbarNav">
                     <ul class="navbar-nav">
+                        {% if is_granted ('ROLE_ADMIN')%}
                         <li class="nav-item">
                             <a class="nav-link" href='{{path("solicitudes")}}'>Solicitudes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href='{{path("opiniones")}}'>Opiniones</a>
                         </li>
+                        {% endif %}
                         {% if is_granted ('ROLE_USER')%}
                         <li class="nav-item">
                             <a class="nav-link" href='{{path("comentar")}}'>Comentar</a>
@@ -54,12 +56,12 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-        <script src="{{asset('js/script.js')}}"></script>
+        <script src="{{asset('/js/script.js')}}"></script>
         {% endblock %}
         {% block footer %}
         <footer>
             <picture>
-                <img src="/assets/img/logo.svg" >
+                <a href="{{path("landing")}}"><img src="/assets/img/logo.svg" ></a>
             </picture>
         <p>Hecho con <span class="heart">&hearts;</span> en Madrid.</p>
         </footer>
