@@ -12,20 +12,25 @@
       <th scope="col">Email</th>
       <th scope="col">Ciudad</th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
   {% for usuario in usuarios %}
-    <tr>
+    <tr id="{{usuario.id}}">
       <th scope="row">{{usuario.id}}</th>
       <td>{{usuario.nombre}}</td>
       <td>{{usuario.email}}</td>
       <td>{{usuario.ciudad}}</td>
-      <td><a href="{{path("borrarSolicitud", {id:usuario.id})}}" style="color:black;"><i class="fas fa-trash-alt fa-1x"></i></a></td>
+      <td><i style="color:#343A40;" class="far fa-edit fa-1x BE"></i></td>
+      <td><i id="{{usuario.id}}" style="color:#343A40;" class="fas fa-trash-alt fa-1x BB"></i></td>
     </tr>
   {% endfor %}
   
   </tbody>
 </table>
 
+{% endblock %}
+{% block javascripts %}
+<script src="{{asset("/js/borrarSolicitud.js")}}"></script>
 {% endblock %}

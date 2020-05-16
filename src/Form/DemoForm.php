@@ -29,10 +29,5 @@ class DemoForm extends AbstractType
       'required' => true
     ]);
   }
-
-  // public function configureOptions(OptionsResolver $resolver)
-  // {        
-  //   $resolver->setDefaults(['data_class'=>Usuario::class]);
-  // }
 }
 

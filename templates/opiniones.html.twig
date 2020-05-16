@@ -12,20 +12,26 @@
       <th scope="col">Ciudad</th>
       <th scope="col">Comentario</th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
   {% for opinion in opiniones %}
-    <tr>
+    <tr id="{{opinion.id}}">
+    
       <th scope="row">{{opinion.id}}</th>
       <td>{{opinion.autor}}</td>
       <td>{{opinion.ciudad}}</td>
       <td>{{opinion.comentario}}</td>
-      <td><a href="{{path("borrarOpinion", {id:opinion.id})}}" style="color:black;"><i class="fas fa-trash-alt fa-1x"></i></a></td>
+      <td><i style="color:#343A40;" class="far fa-edit fa-1x BE"></i></td>
+      <td><i id="{{opinion.id}}" style="color:#343A40;" class="fas fa-trash-alt fa-1x BB"></td>      
     </tr>
   {% endfor %}
   
   </tbody>
 </table>
 </div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{asset("/js/borrarOpinion.js")}}"></script>
 {% endblock %}
