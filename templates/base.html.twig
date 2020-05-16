@@ -23,6 +23,12 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-md-end" id="navbarNav">
                     <ul class="navbar-nav">
+                        
+                        
+                        {% if is_granted ('ROLE_USER')%}
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{path('landing')}}">Bienvenido {{app.user.email}}</a>
+                        </li>
                         {% if is_granted ('ROLE_ADMIN')%}
                         <li class="nav-item">
                             <a class="nav-link" href='{{path("solicitudes")}}'>Solicitudes</a>
@@ -31,13 +37,13 @@
                             <a class="nav-link" href='{{path("opiniones")}}'>Opiniones</a>
                         </li>
                         {% endif %}
-                        {% if is_granted ('ROLE_USER')%}
                         <li class="nav-item">
                             <a class="nav-link" href='{{path("comentar")}}'>Comentar</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href='{{path("app_logout")}}'>Salir</a>
                         </li>
+                        
                         {% else %}
                         <li class="nav-item active">
                             <a class="nav-link" href='{{path("app_login")}}'>Entrar</a>
@@ -58,11 +64,24 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
         {% endblock %}
         {% block footer %}
-        <footer>
-            <picture>
-                <a href="{{path("landing")}}"><img src="/assets/img/logo.svg" ></a>
-            </picture>
-        <p>Hecho con <span class="heart">&hearts;</span> en Madrid.</p>
+        <footer >
+            <div class="row footer">
+                <div class="col-md-3">
+                    <picture class="logo">
+                        <a href="{{path("landing")}}"><img src="/assets/img/logo.svg" ></a>
+                    </picture>
+                </div>
+                <div class="col-md-6 container-fluid">
+                    <a href="https://www.twitter.com/"><i class="icon fab fa-twitter fa-2x"></i></a>
+                    <a href="https://www.facebook.com/"><i class="icon fab fa-facebook-f fa-2x"></i></a>
+                    <a href="https://www.instagram.com/"><i class="icon fab fa-instagram fa-2x"></i></a>
+                    <a href="mailto:juanluis211@outlook.com"><i class="icon fas fa-envelope fa-2x"></i></a>
+                    <p>© Copyright 2020 Juan Rolo. All rights reserved.</p>
+                </div>
+                <div class="col-lg-3">
+                <p >Hecho con <span class="heart">&hearts;</span> en Madrid.</p>
+                </div>
+            </div>
         </footer>
         {% endblock %}
         

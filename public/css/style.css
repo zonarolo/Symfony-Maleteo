@@ -205,14 +205,18 @@
 }
 
 footer {
-  height: 20vh;
+  height: auto;
   background-color: #343A40;
-  font-size: 25px;
   color: white;
-  display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  padding: 2%;
+  text-align: center;
+}
+
+footer .icon{
+  color: #F7A52F;
+  padding: 0 20px 20px;
 }
 
 .heart {
