@@ -1,8 +1,7 @@
 form = document.getElementById("formulario");
 formularioEnv = document.getElementById("formularioEnviado");
 
-document.getElementById("enviar")
-        .addEventListener("click", 
+form.addEventListener("submit", 
 function (e) {
   let data = {
     nombre: document.getElementById("demo_form_nombre").value,

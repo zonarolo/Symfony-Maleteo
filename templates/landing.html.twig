@@ -66,7 +66,7 @@
         </div>
           {{ form_errors(demoForm) }}
         <div class="campo-formulario">
-          <button id="enviar">ENVIAR</button>
+          <button>ENVIAR</button>
         </div>
       {{ form_end(demoForm) }} 
     </section>
@@ -90,4 +90,7 @@
         {% endfor %}
       </article>
     </section>
+    {% endblock %}
+    {% block javascripts %}
+    <script src="{{asset('/js/script.js')}}"></script>
     {% endblock %}

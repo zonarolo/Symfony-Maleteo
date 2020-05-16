@@ -8,9 +8,7 @@
 <div class="centrado">
   {{ form_start(LoginForm) }}
     <div class="campo-formulario">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    
 
     {% if app.user %}
         <div class="mb-3">
@@ -19,6 +17,9 @@
     {% endif %}
       <p class="titulo-medio">Identificate</p>
     </div>
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
     <div class="campo-formulario">
       {{ form_label(LoginForm.email)}}
       {{ form_widget(LoginForm.email, {'attr':{'value': last_username }}) }}
@@ -26,11 +27,8 @@
       {{ form_widget(LoginForm.password) }}
     </div>
     <div style="display: flex; ">
-      {# {{ form_widget(LoginForm.recuerdame) }}
-      {{form_label(LoginForm.recuerdame )}} #}
       <input type="checkbox" id="remember_me" name="_remember_me"/>
-      <label for="checkbox">Recuerdame</label>
-
+      <label for="checkbox"> Recuerdame</label>
     </div>
       {{ form_errors(LoginForm) }}
     <div class="campo-formulario">

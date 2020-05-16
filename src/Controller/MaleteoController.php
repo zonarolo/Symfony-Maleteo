@@ -26,19 +26,6 @@ class MaleteoController extends AbstractController
   {
     try {
       $form = $this->createForm(DemoForm::class);
-      // $form-> handleRequest($request);
-
-      // if ($form->isSubmitted() && $form->isValid()) {
-      //   $data = $form->getData();
-      //   $usuario = new Usuario();
-      //   $usuario->setNombre($data['nombre']);
-      //   $usuario->setEmail($data['email']);
-      //   $usuario->setCiudad($data['ciudad']);
-
-      //   $em->persist($usuario);
-      //   $em->flush();
-      //   return $this->redirectToRoute('enviado');
-      // }
 
       $repo= $em->getRepository(Opinion::class);
       $opiniones=$repo->findAll();
@@ -108,7 +95,7 @@ class MaleteoController extends AbstractController
 
         $em->persist($data);
         $em->flush();
-        return $this->redirectToRoute('opiniones');
+        return $this->redirectToRoute('landing');
       }
     } catch (\Throwable $th) {
       $logger->error($th);
@@ -126,12 +113,18 @@ class MaleteoController extends AbstractController
     $form-> handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()){
-      $user = $form->getData(); 
-      $passwordCifrada = $passwordEncoder->encodePassword($user, $user->getPassword());
-      $user->setPassword($passwordCifrada);
-      $em->persist($user);
-      $em->flush();
-      return $this->redirectToRoute('enviado');
+      try{
+        $user = $form->getData(); 
+        $passwordCifrada = $passwordEncoder->encodePassword($user, $user->getPassword());
+        $user->setPassword($passwordCifrada);
+        $em->persist($user);
+        $em->flush();
+        return $this->redirectToRoute('enviado');
+      } catch(\Exception $exec){
+        $this->addFlash('error', 'Este email ya esta siendo usado.' );
+        return $this->redirectToRoute('registro');
+      }
+      
     }
 
     return $this->render('registro.html.twig', ['RegistroForm'=>$form->createView()]);

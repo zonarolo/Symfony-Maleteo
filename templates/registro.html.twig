@@ -8,6 +8,12 @@
     <div class="campo-formulario">
       <p class="titulo-medio">Registrate</p>
     </div>
+    {% for message in app.session.flashbag.get('error') %}
+      <div class="isa_error campo-formulario">
+        <i class="fa fa-times-circle fa-2x"></i>
+        <span>{{message}}</span>
+      </div>
+    {% endfor %}
     <div class="campo-formulario">
       
       {{ form_label(RegistroForm.nombre)}}
