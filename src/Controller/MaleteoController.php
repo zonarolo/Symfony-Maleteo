@@ -168,11 +168,40 @@ class MaleteoController extends AbstractController
     $demo->setNombre($datos['nombre']);
     $demo->setEmail($datos['email']);
     $demo->setCiudad($datos['ciudad']);
-
+    
     $em->persist($demo);
     $em->flush();
 
     return new JsonResponse(['msg'=>'Datos enviados correctamente']);
   }
 
+  /**
+   * @Route("/maleteo/opiniones/{id}/editar", name="editarOpinion")
+   * IsGranted("ROLE_ADMIN")
+   */
+  public function editarOpiniones(Opinion $opinion, EntityManagerInterface $em, LoggerInterface $logger)
+  {
+    try {
+      $form = $this->createForm(OpinionForm::class,  $opinion);
+      // dd($opinion);
+      
+      if ($form->isSubmitted() && $form->isValid()) {
+        $data = $form->getData();
+        $opinion->setAutor($data['nombre']);
+        $opinion->setCiudad($data['ciudad']);
+        $opinion->setComentario($data['comentario']);
+        dd($opinion);
+
+        $em->persist($opinion);
+        $em->flush();
+        return $this->redirectToRoute('opiniones');
+      }
+    } catch (\Throwable $th) {
+      $logger->error($th);
+    }
+    
+    return $this->render('comentar.html.twig', ['OpinionForm'=>$form->createView()]);
+
+
+  }
 }

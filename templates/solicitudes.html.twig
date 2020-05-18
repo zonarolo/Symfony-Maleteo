@@ -32,5 +32,6 @@
 
 {% endblock %}
 {% block javascripts %}
+{{parent('base.html.twig')}}
 <script src="{{asset("/js/borrarSolicitud.js")}}"></script>
 {% endblock %}

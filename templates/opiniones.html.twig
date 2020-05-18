@@ -3,7 +3,6 @@
 
 {% block title %}Opiniones{% endblock %}
 {% block body %}
-<div>
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -23,15 +22,16 @@
       <td>{{opinion.autor}}</td>
       <td>{{opinion.ciudad}}</td>
       <td>{{opinion.comentario}}</td>
-      <td><i style="cursor: pointer; color:#343A40;" class="far fa-edit fa-1x BE"></i></td>
-      <td><i id="{{opinion.id}}" style="cursor: pointer;color:#343A40;" class="fas fa-trash-alt fa-1x BB"></td>      
+      <td><a href="/maleteo/opiniones/{{opinion.id}}/editar" id="{{opinion.id}}"><i style="cursor: pointer; color:#343A40;" class="far fa-edit fa-1x BotonEditar"></i></a></td>
+      <td><i id="{{opinion.id}}" style="cursor: pointer; color:#343A40;" class="fas fa-trash-alt fa-1x BotonBorrar"></td>      
     </tr>
   {% endfor %}
   
   </tbody>
 </table>
-</div>
+
 {% endblock %}
 {% block javascripts %}
+{{parent('base.html.twig')}}
 <script src="{{asset("/js/borrarOpinion.js")}}"></script>
 {% endblock %}

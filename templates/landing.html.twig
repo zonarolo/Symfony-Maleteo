@@ -92,5 +92,6 @@
     </section>
     {% endblock %}
     {% block javascripts %}
+    {{parent('base.html.twig')}}
     <script src="{{asset('/js/script.js')}}"></script>
     {% endblock %}
