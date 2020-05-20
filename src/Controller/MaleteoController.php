@@ -179,21 +179,20 @@ class MaleteoController extends AbstractController
    * @Route("/maleteo/opiniones/{id}/editar", name="editarOpinion")
    * IsGranted("ROLE_ADMIN")
    */
-  public function editarOpiniones(Opinion $opinion, EntityManagerInterface $em, LoggerInterface $logger)
+  public function editarOpiniones(Opinion $opinion, EntityManagerInterface $em, LoggerInterface $logger, Request $request)
   {
     try {
       $form = $this->createForm(OpinionForm::class,  $opinion);
-      // dd($opinion);
-      
+
+      $form->handleRequest($request);
+
       if ($form->isSubmitted() && $form->isValid()) {
-        $data = $form->getData();
-        $opinion->setAutor($data['nombre']);
-        $opinion->setCiudad($data['ciudad']);
-        $opinion->setComentario($data['comentario']);
-        dd($opinion);
+        //al configurar el data_class en el OpinionForm al hacer el getData ya te devuelve un objeto de tipo Opinion
+        $opinion = $form->getData();
 
         $em->persist($opinion);
         $em->flush();
+
         return $this->redirectToRoute('opiniones');
       }
     } catch (\Throwable $th) {
